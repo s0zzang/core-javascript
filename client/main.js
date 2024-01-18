@@ -1,0 +1,4 @@
+const a = 10;
+console.log('안녕 자바스크립트');
+
+console.log('xxx');
