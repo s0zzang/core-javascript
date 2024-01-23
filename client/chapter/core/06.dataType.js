@@ -58,7 +58,21 @@ console.log(unique, typeof unique); // Symbol(uuid) 'symbol'
 const user = {
   name: 'sozzang',
   age: 30,
+
+  sayHi: function () {
+    console.log(this); // user
+  },
+  sayHi2: () => {
+    console.log(this); // 전역객체
+  },
+  sayHi3() {
+    console.log(this); // user
+  },
 };
+
+console.log(user.sayHi());
+console.log(user.sayHi2());
+console.log(user.sayHi3());
 
 // Array
 const arr = [1, 2, 3, 'aa', user];
