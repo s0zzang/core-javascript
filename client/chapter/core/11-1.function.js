@@ -52,6 +52,24 @@ console.log(rem(10, '10'));
 /* ---------- Test Driven Development(TDD) : 테스트 주도 개발 --------- */
 console.assert(rem(10) === '0.625px');
 
+function calcRem(rem, num) {
+  if (!rem) {
+    throw new Error('없어');
+  }
+
+  if (typeof rem === 'number') {
+    return rem / 16 + 'rem';
+  } else if (typeof rem === 'string' && !num) {
+    let a = parseInt(rem);
+    let result = a / 16;
+    return result + 'rem';
+  } else if (typeof num === 'number' && typeof rem === 'string') {
+    let a = num;
+    let result = parseInt(rem) / a;
+    return result + 'rem';
+  }
+}
+
 // css(node: string, prop: string, value: number|strung) : string;
 let css;
 
