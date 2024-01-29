@@ -71,7 +71,35 @@ function calcRem(rem, num) {
 }
 
 // css(node: string, prop: string, value: number|strung) : string;
-let css;
+function getStyle(node, prop) {
+  // validation
+  if (typeof node === 'string') node = document.querySelector(node);
+  if (typeof prop !== 'string')
+    throw new Error('getStyle 함수의 두번째 인수는 문자 타입이어야 합니다.');
+  return getComputedStyle(node)[prop];
+}
+
+function setStyle(node, prop, value) {
+  if (typeof node === 'string') node = document.querySelector(node);
+  if (typeof prop !== 'string')
+    throw new Error('setStyle 함수의 두번째 인수는 문자 타입이어야 합니다.');
+  if (!value)
+    throw new Error('setStyle 함수의 세번째 인수는 필수 입력값 입니다.');
+  // prop을 변수로 받기 위해선, 대괄호 표기법 사용 필요
+  // computed property
+  node.style[prop] = value;
+}
+
+const size = getStyle('.first', 'fontSize');
+console.log(setStyle('.first', 'backgroundColor', '#ccc'));
+
+/* ---------- get, set 한번에 구하는 css 함수 --------- */
+function css(node, prop, value) {
+  return !value ? getStyle(node, prop) : setStyle(node, prop, value);
+}
+
+console.log(css('.first', 'color'));
+css('.first', 'color', 'blue');
 
 // node의 값을 'h1'으로 받았을 경우
 
