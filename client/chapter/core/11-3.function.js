@@ -61,6 +61,13 @@ const user = {
     sayHi();
     this.grades.forEach((item) => (this.total += item));
     return this.total; // user.total
+
+    /* ------------- 화살표 함수 없었을 때 방법 1 ------------ */
+    // const self = this;
+    /* ------------- 화살표 함수 없었을 때 방법 2 ------------ */
+    this.gradies.forEach(function (item) {
+      // ...
+    }, this); // this = > thisArg : callbackFn을 실행할 때 this 값으로 사용할 값
   },
 
   /* ------------------- 일반 함수 ------------------ */
@@ -76,10 +83,53 @@ const user = {
 user.totalGrades();
 console.log('user.total : ', user.total);
 
-/* 다음 함수를 작성해봅니다. -------------------------------------------------- */
+console.clear();
 
+/* -------------------------------------------- */
+/*                    pow 함수                    */
+/* -------------------------------------------- */
 // pow(numeric: number, powerCount: number): number;
-let pow;
+/* ---------------- pow 일반 함수로 ---------------- */
+let pow = (numeric, powerCount) => {
+  let result = 1;
+  for (let i = 0; i < powerCount; i++) {
+    // numeric *= numeric;
+    result *= numeric;
+  }
+  return result;
+};
+console.log('pow', pow(3, 4));
 
+/* ------------- pow 함수 표현식으로 ~ ------------- */
+let powExpresstion = (numeric, powCount) => {
+  // 반복할 횟수만큼 널널한 배열이 생성됨
+  return Array(powCount)
+    .fill(1)
+    .reduce((acc) => {
+      // cur값은 null이기 때문에 필요 없음
+      // acc 값이 있어서 따로 result 변수 만들지 않음
+      return (acc *= numeric);
+    }, 1); // 초기값 작성하지 않으면, 배열의 첫번째 값인 null = 0이기 때문에 곱해도 0임 > 1로 변경
+
+  /* ----------------- 이렇게도 사용 가능 ---------------- */
+  // return Array(powCount).fill(numeric).reduce((acc) => acc * numeric);
+};
+console.log(powExpresstion(2, 5));
+
+/* -------------------------------------------- */
+/*                   repeat 함수                  */
+/* -------------------------------------------- */
 // repeat(text: string, repeatCount: number): string;
-let repeat;
+let repeat = (text, repeatCount) => {
+  /* ------------------ for문 버전 ----------------- */
+  // let result = '';
+  // for (let i = 0; i < repeatCount; i++) result += text;
+  // return result;
+
+  /* ----------------- reduce 버전 ---------------- */
+  return Array(repeatCount)
+    .fill(null)
+    .reduce((acc) => acc + text, '');
+};
+
+console.log(repeat('메롱😛', 5));
