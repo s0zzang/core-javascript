@@ -64,11 +64,19 @@ let getRandomMinMaxMe = (min, max) => {
 };
 
 // 답이요
+// JSDoc
+/**
+ * 2개의 인수를 받으며 가장 작은 수를 최솟값으로 인식합니다. 최솟값과 최댓값의 랜덤한 수를 반환합니다.
+ * @param {number} min
+ * @param {number} max
+ * @returns number
+ */
+
 let getRandomMinMax = (min, max) => {
   if (max < min) throw new Error('최소값은 최대값보다 작아야 합니다.');
-  return Math.round(Math.random() * (max - min)) + min;
+  return Math.round(Math.random() * (max - min) + min);
 };
-console.log(getRandomMinMax(8, 5));
+console.log(getRandomMinMax(3, 5));
 
 /* 진법 ------------------------------------------------------------------ */
 
