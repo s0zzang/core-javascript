@@ -35,3 +35,6 @@ getCss('.first', 'fontSize');
 setCss('.first', 'color', 'dodgerblue');
 css('.second', 'color', 'orange');
 // css('.second', 'color');
+
+removeClass('.first', 'asdf');
+removeClass('.second', 'second');
