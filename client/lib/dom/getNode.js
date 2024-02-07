@@ -1,4 +1,4 @@
-function getNode(node, context = document) {
+export function getNode(node, context = document) {
   if (typeof node !== 'string')
     throw new Error('getNode 함수의 인수는 문자 타입이어야 합니다.');
   if (context.nodeType !== document.DOCUMENT_NODE) {
@@ -7,7 +7,7 @@ function getNode(node, context = document) {
   return context.querySelector(node);
 }
 
-function getNodes(node, context = document) {
+export function getNodes(node, context = document) {
   if (typeof node !== 'string')
     throw new Error('getNodes 함수의 인수는 문자 타입이어야 합니다.');
   if (context.nodeType !== document.DOCUMENT_NODE) {

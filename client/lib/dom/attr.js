@@ -1,3 +1,5 @@
+import { getNode } from './getNode.js';
+
 function getAttr(el, prop) {
   if (typeof el === 'string') el = getNode(el);
   if (typeof prop !== 'string')

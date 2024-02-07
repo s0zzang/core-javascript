@@ -7,27 +7,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="assets/favicon.svg" type="image/x-icon" />
     <link rel="stylesheet" href="style.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="main.js" type="module"></script>
 
     <!-- 내가 만든 함수 ~ -->
-    <script src="lib/dom/getNode.js" defer></script>
-    <script src="lib/dom/attr.js" defer></script>
+    <!-- <script src="lib/dom/getNode.js" defer></script>
     <script src="lib/dom/insert.js" defer></script>
-    <script src="lib/dom/css.js" defer></script>
-    <script src="lib/dom/bindEvent.js" defer></script>
-
-    <script src="chapter/dom/07.event.js" defer></script>
+    <script src="lib/dom/clear.js" defer></script> -->
   </head>
   <body>
-    <!-- <button type="button" class="deleteEvent">이벤트 제거!</button> -->
-    <!-- <h1>
-      <span class="first">hello</span> <span class="second">javascript</span>
-    </h1> -->
+    <form class="calculator">
+      <div class="first">
+        <label for="firstNumber">First Value</label>
+        <input type="number" name="first" id="firstNumber" required />
+      </div>
 
-    <section>
-      <article>
-        <p></p>
-      </article>
-    </section>
+      <div class="operator">+</div>
+
+      <div class="second">
+        <label for="secondNumber">Second Value</label>
+        <input type="number" name="second" id="secondNumber" required />
+      </div>
+
+      <input id="clear" type="submit" value="clear" />
+
+      <div class="result">-</div>
+    </form>
   </body>
 </html>
