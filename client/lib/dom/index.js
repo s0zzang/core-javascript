@@ -2,4 +2,6 @@
 
 export * from './getNode.js'; // getNode.js에서 나온 모든걸 다시 내보냄
 export * from './insert.js'; // insert.js에서 나온 모든걸 다시 내보냄
-export * from './clear.js'; // insert.js에서 나온 모든걸 다시 내보냄
+
+// export * from './clear.js'; // 이름 내보내기 방법
+export { default as clearContents } from './clear.js'; // 기본 내보내기를 이름으로 다시 내보낸 방법
