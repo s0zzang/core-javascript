@@ -1,7 +1,7 @@
 /* -------------------------------------------- */
 /*                    css 함수                   */
 /* -------------------------------------------- */
-function getCss(node, prop) {
+export function getCss(node, prop) {
   if (typeof node === 'string') node = getNode(node);
   if (!(prop in document.body.style))
     throw new SyntaxError(
@@ -21,27 +21,27 @@ function setCss(node, prop, value) {
   node.style[prop] = value;
 }
 
-const css = (node, prop, value) =>
+export const css = (node, prop, value) =>
   !value ? getCss(node, prop) : setCss(node, prop, value);
 
 /* -------------------------------------------- */
 /*                   class 함수                  */
 /* -------------------------------------------- */
-function addClass(node, className) {
+export function addClass(node, className) {
   if (typeof node === 'string') node = getNode(node);
   if (typeof className !== 'string')
     throw new TypeError('addClass의 두번째 인수는 문자 타입이어야 합니다.');
   node.classList.add(className);
 }
 
-function toggleClass(node, className) {
+export function toggleClass(node, className) {
   if (typeof node === 'string') node = getNode(node);
   if (typeof className !== 'string')
     throw new TypeError('toggleClass의 두번째 인수는 문자 타입이어야 합니다.');
   return node.classList.toggle(className);
 }
 
-function removeClass(node, className) {
+export function removeClass(node, className) {
   if (typeof node === 'string') node = getNode(node);
   if (!className) {
     node.className = '';
