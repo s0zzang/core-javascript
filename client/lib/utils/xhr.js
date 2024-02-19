@@ -1,4 +1,8 @@
 const END_FOINT = 'https://jsonplaceholder.typicode.com/users';
+
+/* -------------------------------------------- */
+/*                 xhr callback                 */
+/* -------------------------------------------- */
 // const xhr = new XMLHttpRequest();
 // console.log(xhr);
 
@@ -76,15 +80,15 @@ export function xhr({
 //   { name: 'tiger' }
 // );
 
-xhr({
-  method: 'POST', // 작성 안하면 get이 기본값
-  url: END_FOINT,
-  onSuccess(res) {
-    // console.log(res);
-  },
-  onFail() {},
-  body: { name: 'tiger' },
-});
+// xhr({
+//   method: 'POST', // 작성 안하면 get이 기본값
+//   url: END_FOINT,
+//   onSuccess(res) {
+//     // console.log(res);
+//   },
+//   onFail() {},
+//   body: { name: 'tiger' },
+// });
 
 /* ---------------- 이렇게 사용하고싶다 ---------------- */
 xhr.get = (url, onSuccess, onFail) => {
@@ -134,9 +138,34 @@ xhr.delete = (url, onSuccess, onFail) => {
 /* -------------------------------------------- */
 /*                  xhr promise                 */
 /* -------------------------------------------- */
-function xhrPromise(method, url, body) {
+const defaultOptions = {
+  method: 'GET',
+  url: '',
+  body: null,
+  errorMessage: '서버와의 통신이 원활하지 않습니다.',
+  headers: {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+  },
+};
+
+export function xhrPromise(options) {
+  /* ----------- 1. 합성(mixin) 후 구조분해할당 ---------- */
+  // const config = { ...defaultOptions, ...options };
+  // const { method, url, body } = config;
+  /* -------------- 2. 합성 + 구조분해할당 -------------- */
+  const { method, url, body, errorMessage, headers } = {
+    ...defaultOptions,
+    ...options,
+    // 중첩된 객체를 제대로 복사하기 위해서
+    headers: { ...defaultOptions.headers, ...options.headers },
+  };
+
   const xhr = new XMLHttpRequest();
   xhr.open(method, url);
+  Object.entries(headers).forEach(([key, value]) => {
+    xhr.setRequestHeader(key, value);
+  });
   xhr.send(JSON.stringify(body)); // post, put에만 사용되지만 생략하면안됨 ;;
 
   return new Promise((resolve, reject) => {
@@ -145,17 +174,25 @@ function xhrPromise(method, url, body) {
         if (xhr.status >= 200 && xhr.status < 400) {
           resolve(JSON.parse(xhr.response));
         } else {
-          reject({ message: '오륜디' });
+          reject({ message: errorMessage });
         }
       }
     });
   });
 }
 
-xhrPromise('GET', END_FOINT)
-  .then((res) => {
-    console.log(res);
-  })
-  .catch((err) => {
-    err.message;
-  });
+// return 필수 ! : 프라미스 객체를 내보내야 then을 사용할 수 있기 때문에
+xhrPromise.get = (url) => {
+  return xhrPromise({ url });
+};
+xhrPromise.post = (url, body) => {
+  return xhrPromise({ method: 'POST', url, body });
+};
+xhrPromise.put = (url, body) => {
+  return xhrPromise({ method: 'PUT', url, body });
+};
+xhrPromise.put = (url) => {
+  return xhrPromise({ method: 'DELETE', url });
+};
+
+// xhrPromise.get(END_FOINT).then(console.log).catch(console.log);

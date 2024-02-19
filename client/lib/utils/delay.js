@@ -1,5 +1,9 @@
 import { getNode } from '../dom/getNode.js';
+import { insertLast } from '../dom/insert.js';
+import { getRandomMinMax } from '../math/getRandomMinMax.js';
+import { sozzang } from './sozzang.js';
 import { isNumber, isObject } from './typeOf.js';
+import { xhrPromise } from './xhr.js';
 
 const first = getNode('.first');
 const second = getNode('.second');
@@ -37,7 +41,7 @@ const defaultoptions = {
   timeout: 1000,
 };
 
-function delayP(options) {
+export function delayP(options) {
   let config = { ...defaultoptions };
   if (isNumber(options)) {
     config.timeout = options;
@@ -58,14 +62,14 @@ function delayP(options) {
   });
 }
 
-const result = delayP(3000);
-result
-  .then((res) => {
-    console.log(res);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+// const result = delayP(3000);
+// result
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
 
 delayP(1000)
   .then((res) => {
@@ -86,3 +90,46 @@ delayP(1000)
     console.log('3단계');
     return delayP(1000);
   });
+
+/* -------------------------------------------- */
+/*                 async, await                 */
+/* -------------------------------------------- */
+async function delayA(data) {
+  return data;
+}
+const result1 = delayA('신재훈');
+// console.log(result1); // Promise {<fulfilled>: '신재훈'}
+
+// top-level-await
+const result2 = await delayA('신재훈');
+// console.log(result2); // 신재훈
+
+// delayA('곽도희').then(console.log); // 곽도희
+
+/* ------------ top-level-await 방지 ------------ */
+// IIAFE
+(async () => {
+  // 여기에 코드 작성하면 async 함수 안이라서 awiat 사용 가능
+})();
+
+/* ----------- 또다른 async 함수 : 라면 끓이기 ---------- */
+async function 라면끓이기() {
+  console.log('---');
+  console.log('물');
+  console.log('스프');
+  console.log('면');
+  console.log('그릇');
+  console.log('---');
+}
+// 라면끓이기();
+
+/* ------------------ 포켓몬 입양 ------------------ */
+async function getData() {
+  const response = await sozzang.get(
+    `https://pokeapi.co/api/v2/pokemon/${getRandomMinMax(0, 100)}`
+  );
+  // console.log(response.data); // response 객체
+  const imgSrc = response.data.sprites.other.showdown['front_default'];
+  insertLast('h2', `<img src="${imgSrc}" alt="" />`);
+}
+// getData();
