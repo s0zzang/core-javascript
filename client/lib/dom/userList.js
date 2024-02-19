@@ -2,12 +2,12 @@ import { insertLast } from './insert.js';
 
 function createUserCard({
   id,
-  username = 'unknown',
+  name = 'unknown',
   email = 'template@temp.com',
   website = 'template.com',
 }) {
   return /* html */ `<article class="user-card" data-index="user-${id}">
-  <h3 class="user-name">${username}</h3>
+  <h3 class="user-name">${name}</h3>
   <div class="user-resouce-info">
     <div>
       <a class="user-email" href="mailto:${email}">${email}</a>
